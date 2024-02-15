@@ -1,0 +1,26 @@
+# Compiler to use for C++
+CXX = g++
+
+# Flag declaration
+CXXFLAGS = -Wall
+
+# Target exe
+all: hotelFinder
+
+hotelFinder: main.o hashtable.o hotel.o bst.o
+	$(CXX) $(CXXFLAGS) main.o hashtable.o hotel.o bst.o -o hotelFinder
+
+main.o: main.cpp hashtable.hpp
+	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
+
+hashtable.o: hashtable.cpp hashtable.hpp bst.cpp hotel.cpp
+	$(CXX) $(CXXFLAGS) -c hashtable.cpp -o hashtable.o
+
+hotel.o: hotel.cpp hotel.hpp
+	$(CXX) $(CXXFLAGS) -c hotel.cpp -o hotel.o
+
+bst.o: bst.cpp bst.hpp
+	$(CXX) $(CXXFLAGS) -c bst.cpp -o bst.o
+
+clean:
+	rm -f *.o hotelFinder
